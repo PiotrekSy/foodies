@@ -1,13 +1,10 @@
+'use client'
+
 import classes from './page.module.css';
 import ImagePicker from '../image-picker';
+import { shareMeal } from '../../../lib/actions.jsx';
 
 const ShareMealPage = () => {
-
-
-    const shareMeal = async () => {
-        'use server';
-
-    }
 
     return (
         <>
@@ -46,7 +43,7 @@ const ShareMealPage = () => {
                             required
                         ></textarea>
                     </p>
-                    <ImagePicker />
+                    <ImagePicker label="yourImage" name="image" />
                     <p className={classes.actions}>
                         <button type="submit">Share Meal</button>
                     </p>
