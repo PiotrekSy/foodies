@@ -1,10 +1,13 @@
-'use client'
-
+'use client';
 import classes from './page.module.css';
 import ImagePicker from '../image-picker';
-import { shareMeal } from '../../../lib/actions.jsx';
+import { shareMeal } from '../../../lib/actions';
+import { useFormState } from 'react-dom';
+import MealsSubmitButton from '../../../components/Meals/MealsSubmitButton';
 
 const ShareMealPage = () => {
+
+    const [formState, formAction] = useFormState(shareMeal, { message: null });
 
     return (
         <>
@@ -15,15 +18,17 @@ const ShareMealPage = () => {
                 <p>Or any other meal you feel needs sharing!</p>
             </header>
             <main className={classes.main}>
-                <form className={classes.form} action={shareMeal}>
+                <form className={classes.form} action={formAction}>
                     <div className={classes.row}>
                         <p>
-                            <label htmlFor="name">Your name</label>
-                            <input type="text" id="name" name="name" required />
+                            <label htmlFor="name">
+                                Your name
+                            </label>
+                            <input type="text" id="creator" name="creator" required />
                         </p>
                         <p>
                             <label htmlFor="email">Your email</label>
-                            <input type="email" id="email" name="email" required />
+                            <input type="email" id="creator_email" name="creator_email" required />
                         </p>
                     </div>
                     <p>
@@ -35,7 +40,7 @@ const ShareMealPage = () => {
                         <input type="text" id="summary" name="summary" required />
                     </p>
                     <p>
-                        <label htmlFor="instructions">Instructions</label>
+                        <label htmlFor="instructions" >Instructions</label>
                         <textarea
                             id="instructions"
                             name="instructions"
@@ -43,13 +48,15 @@ const ShareMealPage = () => {
                             required
                         ></textarea>
                     </p>
-                    <ImagePicker label="yourImage" name="image" />
+                    <ImagePicker label="SEND Image" name="image" />
+                    {formState.message && <p>{formState.message}</p>}
                     <p className={classes.actions}>
-                        <button type="submit">Share Meal</button>
+                        <MealsSubmitButton />
                     </p>
                 </form>
             </main>
         </>
     );
 }
+
 export default ShareMealPage;
