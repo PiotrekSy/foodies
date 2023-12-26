@@ -1,6 +1,7 @@
 'use server';
 import { redirect } from "next/navigation";
 import { saveMeal } from "./meals";
+import { revalidatePath } from "next/cache";
 
 export const shareMeal = async (prevState, formData) => {
 
@@ -31,5 +32,6 @@ export const shareMeal = async (prevState, formData) => {
     }
 
     await saveMeal(meal);
+    revalidatePath('/meals', 'layout');
     redirect('/meals');
 }
